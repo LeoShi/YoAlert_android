@@ -1,16 +1,15 @@
 package com.yoalert.cops;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.markupartist.android.widget.PullToRefreshListView;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -21,7 +20,7 @@ import java.util.LinkedList;
  * To change this template use File | Settings | File Templates.
  */
 public class TaskListView extends ListActivity {
-    private LinkedList<String> mListItems;
+    private LinkedList<Incident> mListItems;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +34,14 @@ public class TaskListView extends ListActivity {
             }
         });
 
-        mListItems = new LinkedList<String>();
+        mListItems = new LinkedList<Incident>();
         mListItems.addAll(Arrays.asList(mStrings));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, mListItems);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_list_item_1, mListItems);
+        IncidentAdapter incidentAdapter = new IncidentAdapter(this, mListItems);
 
-        setListAdapter(adapter);
+        setListAdapter(incidentAdapter);
     }
 
 
@@ -53,10 +53,10 @@ public class TaskListView extends ListActivity {
         Toast.makeText(this, "You have chosen the pen: "+ item.toString(), Toast.LENGTH_LONG).show();
     }
 
-    private class GetDataTask extends AsyncTask<Void, Void, String[]> {
+    private class GetDataTask extends AsyncTask<Void, Void, Incident[]> {
 
         @Override
-        protected String[] doInBackground(Void... params) {
+        protected Incident[] doInBackground(Void... params) {
             // Simulates a background job.
             try {
                 Thread.sleep(2000);
@@ -67,20 +67,17 @@ public class TaskListView extends ListActivity {
         }
 
         @Override
-        protected void onPostExecute(String[] result) {
-        mListItems.addFirst("Added after refresh...");
+        protected void onPostExecute(Incident[] result) {
+            mListItems.addFirst(new Incident(2, "Hijack", new Date(), Incident.UNPROCESS));
 
-        // Call onRefreshComplete when the list has been refreshed.
-        ((PullToRefreshListView) getListView()).onRefreshComplete();
+            // Call onRefreshComplete when the list has been refreshed.
+            ((PullToRefreshListView) getListView()).onRefreshComplete();
 
             super.onPostExecute(result);
         }
     }
 
-    private String[] mStrings = {
-            "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam",
-            "Abondance", "Ackawi", "Acorn", "Adelost", "Affidelice au Chablis",
-            "Afuega'l Pitu", "Airag", "Airedale", "Aisy Cendre",
-            "Allgauer Emmentaler"};
+    private Incident[] mStrings = {
+            new Incident(1, "Shooting", new Date(), Incident.PROCESSED)};
 
 }

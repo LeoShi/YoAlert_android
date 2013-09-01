@@ -1,6 +1,7 @@
 package com.yoalert.cops;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -37,8 +38,6 @@ public class TaskListView extends ListActivity {
         mListItems = new LinkedList<Incident>();
         mListItems.addAll(Arrays.asList(mStrings));
 
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, mListItems);
         IncidentAdapter incidentAdapter = new IncidentAdapter(this, mListItems);
 
         setListAdapter(incidentAdapter);
@@ -49,8 +48,12 @@ public class TaskListView extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);    //To change body of overridden methods use File | Settings | File Templates.
-        Object item = this.getListAdapter().getItem(position);
-        Toast.makeText(this, "You have chosen the pen: "+ item.toString(), Toast.LENGTH_LONG).show();
+        Incident item = (Incident)this.getListAdapter().getItem(position - 1);
+//        Toast.makeText(this, "You have chosen the incident: "+ item.getCategory(), Toast.LENGTH_LONG).show();
+        Intent taskDetailIntent = new Intent(TaskListView.this, TaskDetail.class);
+        taskDetailIntent.putExtra("incident", item);
+        startActivity(taskDetailIntent);
+
     }
 
     private class GetDataTask extends AsyncTask<Void, Void, Incident[]> {
@@ -61,7 +64,6 @@ public class TaskListView extends ListActivity {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                ;
             }
             return mStrings;
         }

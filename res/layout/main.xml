@@ -8,33 +8,40 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log in"
+            android:text="@string/log_in"
             android:id="@+id/loginText" android:layout_gravity="center_horizontal"
             android:textColor="#372c24"
             android:textSize="30dp"/>
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="User Name:"
+            android:text="@string/email"
             android:id="@+id/textView" android:textColor="#372c24"/>
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText" android:layout_marginTop="5dp" android:layout_marginBottom="20dp"
-            android:singleLine="true"/>
+            android:id="@+id/email" android:layout_marginTop="5dp" android:layout_marginBottom="20dp"
+            android:singleLine="true" android:inputType="textEmailAddress"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password:"
+            android:text="@string/password"
             android:id="@+id/textView1" android:textColor="#372c24"/>
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText1" android:password="true" android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp" android:singleLine="true"/>
+            android:id="@+id/password" android:password="true" android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp" android:singleLine="true" android:inputType="textPassword"/>
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/login"
             android:id="@+id/btn_login" android:onClick="btn_login_click"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_error_msg"
+            android:layout_marginTop="20dp"
+            android:id="@+id/error_msg" android:textColor="#9f0711" android:textStyle="bold"
+            android:visibility="invisible"/>
 </LinearLayout>

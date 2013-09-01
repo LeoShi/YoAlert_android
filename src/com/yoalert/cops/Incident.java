@@ -1,5 +1,6 @@
 package com.yoalert.cops;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * Time: 12:26 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Incident {
+public class Incident implements Serializable {
     public static final String UNPROCESS = "unprocess";
     public static final String PROCESSING = "processing";
     public static final String PROCESSED = "processed";
@@ -37,3 +38,5 @@ public class Incident {
         return date;
     }
 }
+
+

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+    <TableLayout
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content">
+
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Datetime:"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2013-07-06"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/createDate"/>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Category:"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20dp"
+                    android:text="Hijack"
+                    android:id="@+id/category"/>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Location:"/>
+            <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sunset Avenue, Sandton 2062, South Africa"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/location"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Victim:"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Brain"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/victim"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Contact:"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="123445"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/contact"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ref #:"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="HSB1375218378"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/refNumber"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Status:"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Open"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/status"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Updated time:"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="2013-07-06"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/updatedTime"/>
+
+        </TableRow>
+
+        <TableRow android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:paddingLeft="20dp"
+                  android:paddingTop="10dp">
+            <LinearLayout android:orientation="horizontal"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
+                          android:layout_span="2">
+                <Button android:id="@+id/btn_process"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Process" android:onClick="btn_process_click"/>
+
+                <Button android:id="@+id/btn_back"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Back" android:onClick="btn_back_click"/>
+            </LinearLayout>
+
+        </TableRow>
+    </TableLayout>
+</ScrollView>

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">YoAlertCops</string>
+    <string name="login_url">http://192.168.1.105:3000/users/login.json</string>
+    <string name="password">Password:</string>
+    <string name="email">Email:</string>
+    <string name="log_in">Log in</string>
+    <string name="login">Login</string>
+    <string name="login_error_msg">Email or password is invalid</string>
 </resources>

@@ -8,18 +8,20 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.List;
 
 public class RequestWrapper {
 
-    public static Response post(String url, List<NameValuePair> data) {
+    public static Response post(String url, JSONObject data) {
         HttpPost request = new HttpPost(url);
-        request.addHeader("content-type", "application/x-www-form-urlencoded");
+        request.addHeader("content-type", "application/json");
         try {
-            request.setEntity(new UrlEncodedFormEntity(data));
+            request.setEntity(new StringEntity(data.toString()));
             return request(request);
 
         } catch (UnsupportedEncodingException ignored) {

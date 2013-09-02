@@ -14,6 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -26,12 +29,23 @@ import java.util.LinkedList;
 public class TaskListView extends ListActivity {
     private LinkedList<Incident> mListItems;
     private String userToken;
+    private String latestUpdateTime;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SharedPreferences sharedPref;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.user_information), Context.MODE_PRIVATE);
-        userToken = sharedPref.getString(getString(R.string.current_user_token), "");
+        initUserToken();
+        initLatestUpdateTime();
         setContentView(R.layout.tasklist);
+        initListView();
+    }
+
+    private void initLatestUpdateTime() {
+        latestUpdateTime = sharedPref.getString(getString(R.string.latest_update_time), "2013-01-01 00:00:00");
+    }
+
+    private void initListView() {
         // Set a listener to be invoked when the list should be refreshed.
         ((PullToRefreshListView) getListView()).setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
             @Override
@@ -40,12 +54,14 @@ public class TaskListView extends ListActivity {
                 new GetDataTask().execute();
             }
         });
-
         mListItems = new LinkedList<Incident>();
-
         IncidentAdapter incidentAdapter = new IncidentAdapter(this, mListItems);
-
         setListAdapter(incidentAdapter);
+    }
+
+    private void initUserToken() {
+        sharedPref = getSharedPreferences(getString(R.string.user_information), Context.MODE_PRIVATE);
+        userToken = sharedPref.getString(getString(R.string.current_user_token), "");
     }
 
     @Override
@@ -55,7 +71,18 @@ public class TaskListView extends ListActivity {
         Intent taskDetailIntent = new Intent(TaskListView.this, TaskDetail.class);
         taskDetailIntent.putExtra("incident", item);
         startActivity(taskDetailIntent);
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();    //To change body of overridden methods use File | Settings | File Templates.
+//        saveLatestUpdateTime();
+    }
+
+    private void saveLatestUpdateTime() {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.latest_update_time), latestUpdateTime);
+        editor.commit();
     }
 
     private class GetDataTask extends AsyncTask<Void, Void, LinkedList<Incident>> {
@@ -63,7 +90,9 @@ public class TaskListView extends ListActivity {
         @Override
         protected LinkedList<Incident> doInBackground(Void... params) {
             LinkedList<Incident> incidents = new LinkedList<Incident>();
-            Response response = RequestWrapper.get(String.format(getString(R.string.get_incidents_url), userToken));
+            String incidentUrl = String.format(getString(R.string.get_incidents_url), userToken,
+                    latestUpdateTime.replace(" ", "%20"));
+            Response response = RequestWrapper.get(incidentUrl);
             try{
                 JSONArray jsonArray = new JSONArray(response.getContent());
                 for(int i = 0; i < jsonArray.length(); i++){
@@ -87,9 +116,21 @@ public class TaskListView extends ListActivity {
             String reference = jsonObject.getString("reference");
             String mobile_user_contact = jsonObject.getString("mobile_user_contact");
             String mobile_user_name = jsonObject.getString("mobile_user_name");
+            updateLatestUpdateTime(updatedTime);
 
             return new Incident(id,category,updatedTime,status, location, mobile_user_name,
                     mobile_user_contact, reference, createdTime);
+        }
+
+        private void updateLatestUpdateTime(String updatedTime) {
+            try {
+                Date updatedDate = dateFormat.parse(updatedTime);
+                Date latestUpdateDate = dateFormat.parse(latestUpdateTime);
+                if(latestUpdateDate.before(updatedDate)){
+                    latestUpdateTime = dateFormat.format(updatedDate);
+                }
+
+            } catch (ParseException ignored) {}
         }
 
         @Override

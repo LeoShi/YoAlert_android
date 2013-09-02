@@ -10,7 +10,7 @@
     <string name="user_information">user_infomation</string>
     <string name="current_user_token">current_user_token</string>
     <string name="token">token</string>
-    <string name="get_incidents_url">http://192.168.1.106:3000/incidents.json?auth_token=%s</string>
+    <string name="get_incidents_url"><![CDATA[http://192.168.1.106:3000/incidents.json?auth_token=%1$s&last_update_time=%2$s]]></string>
     <string name="createTime">CreateTime:</string>
     <string name="category">Category:</string>
     <string name="location">Location:</string>
@@ -19,4 +19,5 @@
     <string name="ref">Ref #:</string>
     <string name="status">Status:</string>
     <string name="update_time">Updated time:</string>
+    <string name="latest_update_time">latest_update_time</string>
 </resources>

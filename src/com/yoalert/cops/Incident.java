@@ -1,7 +1,6 @@
 package com.yoalert.cops;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,19 +10,30 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Incident implements Serializable {
-    public static final String UNPROCESS = "unprocess";
-    public static final String PROCESSING = "processing";
-    public static final String PROCESSED = "processed";
+    public static final String OPEN = "Open";
+    public static final String PROCESSING = "In Progress";
+    public static final String PROCESSED = "Closed";
     private long id;
     private String category;
-    private Date date;
-    public String status;
+    private String updatedTime;
+    private String status;
+    private String location;
+    private String victim;
+    private String contact;
+    private String reference;
+    private String createTime;
 
-    public Incident(long id, String category, Date date, String status) {
+    public Incident(long id, String category, String updatedTime, String status, String location,
+                    String victim, String contact, String reference, String createTime) {
         this.id = id;
         this.category = category;
-        this.date = date;
+        this.updatedTime = updatedTime;
         this.status = status;
+        this.location = location;
+        this.victim = victim;
+        this.contact = contact;
+        this.reference = reference;
+        this.createTime = createTime;
     }
 
     public long getId() {
@@ -34,8 +44,32 @@ public class Incident implements Serializable {
         return category;
     }
 
-    public Date getDate() {
-        return date;
+    public String getUpdateTime() {
+        return updatedTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getVictim() {
+        return victim;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getCreateTime() {
+        return createTime;
     }
 }
 

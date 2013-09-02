@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">YoAlertCops</string>
-    <string name="login_url">http://192.168.1.105:3000/api/v1/tokens.json</string>
+    <string name="login_url">http://192.168.1.106:3000/api/v1/tokens.json</string>
     <string name="password">Password:</string>
     <string name="email">Email:</string>
     <string name="log_in">Log in</string>
     <string name="login">Login</string>
     <string name="login_error_msg">Email or password is invalid</string>
+    <string name="user_information">user_infomation</string>
+    <string name="current_user_token">current_user_token</string>
+    <string name="token">token</string>
+    <string name="get_incidents_url">http://192.168.1.106:3000/incidents.json?auth_token=%s</string>
+    <string name="createTime">CreateTime:</string>
+    <string name="category">Category:</string>
+    <string name="location">Location:</string>
+    <string name="victim">Victim:</string>
+    <string name="contact">Contact:</string>
+    <string name="ref">Ref #:</string>
+    <string name="status">Status:</string>
+    <string name="update_time">Updated time:</string>
 </resources>

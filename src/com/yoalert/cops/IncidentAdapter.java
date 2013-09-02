@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -21,7 +20,6 @@ import java.util.List;
 public class IncidentAdapter extends ArrayAdapter<Incident> {
     private final Context context;
     private final List<Incident> data;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public IncidentAdapter(Context context, List<Incident> data) {
         super(context, R.layout.tasklist_row, data);
@@ -37,11 +35,9 @@ public class IncidentAdapter extends ArrayAdapter<Incident> {
         TextView datetimeView = (TextView)rowView.findViewById(R.id.datetime);
         Incident currentIncident = data.get(position);
 
-        System.out.print(currentIncident.getCategory());
-
         categoryView.setText(currentIncident.getCategory());
-        datetimeView.setText(dateFormat.format(currentIncident.getDate()));
-        if (currentIncident.status.equals(Incident.UNPROCESS)){
+        datetimeView.setText(currentIncident.getUpdateTime());
+        if (currentIncident.getStatus().equals(Incident.OPEN)){
             rowView.setBackgroundColor(Color.RED);
         }
         return rowView;

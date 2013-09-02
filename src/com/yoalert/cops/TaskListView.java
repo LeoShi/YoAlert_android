@@ -1,16 +1,19 @@
 package com.yoalert.cops;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 import com.markupartist.android.widget.PullToRefreshListView;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -22,9 +25,12 @@ import java.util.LinkedList;
  */
 public class TaskListView extends ListActivity {
     private LinkedList<Incident> mListItems;
+    private String userToken;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.user_information), Context.MODE_PRIVATE);
+        userToken = sharedPref.getString(getString(R.string.current_user_token), "");
         setContentView(R.layout.tasklist);
         // Set a listener to be invoked when the list should be refreshed.
         ((PullToRefreshListView) getListView()).setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
@@ -36,50 +42,62 @@ public class TaskListView extends ListActivity {
         });
 
         mListItems = new LinkedList<Incident>();
-        mListItems.addAll(Arrays.asList(mStrings));
 
         IncidentAdapter incidentAdapter = new IncidentAdapter(this, mListItems);
 
         setListAdapter(incidentAdapter);
     }
 
-
-
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);    //To change body of overridden methods use File | Settings | File Templates.
         Incident item = (Incident)this.getListAdapter().getItem(position - 1);
-//        Toast.makeText(this, "You have chosen the incident: "+ item.getCategory(), Toast.LENGTH_LONG).show();
         Intent taskDetailIntent = new Intent(TaskListView.this, TaskDetail.class);
         taskDetailIntent.putExtra("incident", item);
         startActivity(taskDetailIntent);
 
     }
 
-    private class GetDataTask extends AsyncTask<Void, Void, Incident[]> {
+    private class GetDataTask extends AsyncTask<Void, Void, LinkedList<Incident>> {
 
         @Override
-        protected Incident[] doInBackground(Void... params) {
-            // Simulates a background job.
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+        protected LinkedList<Incident> doInBackground(Void... params) {
+            LinkedList<Incident> incidents = new LinkedList<Incident>();
+            Response response = RequestWrapper.get(String.format(getString(R.string.get_incidents_url), userToken));
+            try{
+                JSONArray jsonArray = new JSONArray(response.getContent());
+                for(int i = 0; i < jsonArray.length(); i++){
+                    Incident incident = parseIncident(jsonArray.getJSONObject(i));
+                    incidents.addLast(incident);
+                }
+            } catch (JSONException e) {
+            Log.e("save user token error", e.toString());
             }
-            return mStrings;
+
+            return incidents;
+        }
+
+        private Incident parseIncident(JSONObject jsonObject) throws JSONException {
+            int id = jsonObject.getInt("id");
+            String category = jsonObject.getString("category");
+            String updatedTime = jsonObject.getString("updated_at");
+            String createdTime = jsonObject.getString("created_at");
+            String status = jsonObject.getString("status");
+            String location = jsonObject.getString("location");
+            String reference = jsonObject.getString("reference");
+            String mobile_user_contact = jsonObject.getString("mobile_user_contact");
+            String mobile_user_name = jsonObject.getString("mobile_user_name");
+
+            return new Incident(id,category,updatedTime,status, location, mobile_user_name,
+                    mobile_user_contact, reference, createdTime);
         }
 
         @Override
-        protected void onPostExecute(Incident[] result) {
-            mListItems.addFirst(new Incident(2, "Hijack", new Date(), Incident.UNPROCESS));
-
+        protected void onPostExecute(LinkedList<Incident> result) {
+            mListItems.addAll(result);
             // Call onRefreshComplete when the list has been refreshed.
             ((PullToRefreshListView) getListView()).onRefreshComplete();
-
             super.onPostExecute(result);
         }
     }
-
-    private Incident[] mStrings = {
-            new Incident(1, "Shooting", new Date(), Incident.PROCESSED)};
-
 }

@@ -17,11 +17,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
-                    android:text="Datetime:"/>
+                    android:text="@string/createTime"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2013-07-06"
+                    android:text=""
                     android:textSize="20dp"
                     android:layout_marginLeft="5dp"
                     android:id="@+id/createDate"/>
@@ -38,13 +38,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
-                    android:text="Category:"/>
+                    android:text="@string/category"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:textSize="20dp"
-                    android:text="Hijack"
+                    android:text=""
                     android:id="@+id/category"/>
 
         </TableRow>
@@ -58,11 +58,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
-                    android:text="Location:"/>
+                    android:text="@string/location"/>
             <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Sunset Avenue, Sandton 2062, South Africa"
+                    android:text=""
                     android:textSize="20dp"
                     android:layout_marginLeft="5dp"
                     android:id="@+id/location"/>
@@ -77,12 +77,12 @@
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="Victim:"/>
+                    android:text="@string/victim"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="Brain"
+                    android:text=""
                     android:layout_marginLeft="5dp"
                     android:id="@+id/victim"/>
 
@@ -96,12 +96,12 @@
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="Contact:"/>
+                    android:text="@string/contact"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="123445"
+                    android:text=""
                     android:layout_marginLeft="5dp"
                     android:id="@+id/contact"/>
 
@@ -115,12 +115,12 @@
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="Ref #:"/>
+                    android:text="@string/ref"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="HSB1375218378"
+                    android:text=""
                     android:layout_marginLeft="5dp"
                     android:id="@+id/refNumber"/>
 
@@ -134,12 +134,12 @@
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="Status:"/>
+                    android:text="@string/status"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="Open"
+                    android:text=""
                     android:layout_marginLeft="5dp"
                     android:id="@+id/status"/>
 
@@ -153,12 +153,12 @@
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="Updated time:"/>
+                    android:text="@string/update_time"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:layout_height="wrap_content"
-                    android:text="2013-07-06"
+                    android:text=""
                     android:layout_marginLeft="5dp"
                     android:id="@+id/updatedTime"/>
 
@@ -185,4 +185,5 @@
 
         </TableRow>
     </TableLayout>
+
 </ScrollView>

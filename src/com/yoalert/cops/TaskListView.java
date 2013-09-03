@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -41,6 +44,26 @@ public class TaskListView extends ListActivity {
         initLatestUpdateTime();
         setContentView(R.layout.tasklist);
         initListView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.layout.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_logout){
+            String url = String.format(getString(R.string.log_out_url), userToken);
+            Response response = RequestWrapper.delete(url);
+            if(response.getHttp_status_code() == 201){
+                sharedPref.edit().clear().commit();
+                startActivity(new Intent(TaskListView.this, LoginActivity.class));
+            }
+        }
+        return true;
     }
 
     @Override

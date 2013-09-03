@@ -31,17 +31,17 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/password" android:password="true" android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp" android:singleLine="true" android:inputType="textPassword"/>
+            android:singleLine="true" android:inputType="textPassword"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_error_msg"
+            android:id="@+id/error_msg" android:textColor="#9f0711" android:textStyle="bold"
+            android:visibility="invisible"/>
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:id="@+id/btn_login" android:onClick="btn_login_click"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_error_msg"
-            android:layout_marginTop="20dp"
-            android:id="@+id/error_msg" android:textColor="#9f0711" android:textStyle="bold"
-            android:visibility="invisible"/>
+
 </LinearLayout>

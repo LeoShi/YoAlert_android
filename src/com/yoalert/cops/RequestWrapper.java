@@ -20,6 +20,10 @@ public class RequestWrapper {
         return getJsonResponse(data, new HttpPut(url));
     }
 
+    public static Response delete(String url) {
+        return request(new HttpDelete(url));
+    }
+
     private static Response getJsonResponse(JSONObject data, HttpEntityEnclosingRequestBase request) {
         request.addHeader("content-type", "application/json");
         try {
@@ -77,4 +81,6 @@ public class RequestWrapper {
         }
         return sb.toString();
     }
+
+
 }

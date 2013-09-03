@@ -25,6 +25,12 @@ public class TaskDetail extends Activity {
         buildView();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(TaskDetail.this, TaskListView.class));
+//        super.onBackPressed();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
     private void buildView() {
         Bundle extras = getIntent().getExtras();
         incident = (Incident) extras.getSerializable("incident");

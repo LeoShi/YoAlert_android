@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.markupartist.android.widget.PullToRefreshListView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +33,7 @@ public class TaskListView extends ListActivity {
     private String latestUpdateTime;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private SharedPreferences sharedPref;
+    private int backButtonCount;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,22 @@ public class TaskListView extends ListActivity {
         initLatestUpdateTime();
         setContentView(R.layout.tasklist);
         initListView();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this, "Press the back button once again to close the application.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
     }
 
     private void initLatestUpdateTime() {

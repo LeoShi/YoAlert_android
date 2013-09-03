@@ -97,6 +97,12 @@ public class TaskListView extends ListActivity {
 //        saveLatestUpdateTime();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
+        ((PullToRefreshListView) getListView()).onRefresh();
+    }
+
     private void saveLatestUpdateTime() {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.latest_update_time), latestUpdateTime);

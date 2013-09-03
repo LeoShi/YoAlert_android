@@ -2,12 +2,17 @@ package com.yoalert.cops;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,10 +30,14 @@ public class TaskDetail extends Activity {
         buildView();
     }
 
+    private String getUserToken() {
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.user_information), Context.MODE_PRIVATE);
+        return sharedPref.getString(getString(R.string.current_user_token), "");
+    }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(TaskDetail.this, TaskListView.class));
-//        super.onBackPressed();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     private void buildView() {
@@ -52,16 +61,24 @@ public class TaskDetail extends Activity {
        new AlertDialog.Builder(this)
                 .setTitle("Confirm Submit")
                 .setMessage("Are you sure you have done this task?")
-                .setPositiveButton("Done",new DialogInterface.OnClickListener() {
+                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(TaskDetail.this, TaskListView.class));
+                        String url = String.format(getString(R.string.put_incident_url), incident.getId(), getUserToken());
+                        Response response = RequestWrapper.put(url, buildProcessedInfo());
+                        if (response.getHttp_status_code() == 201) {
+                            startActivity(new Intent(TaskDetail.this, TaskListView.class));
+                        }
                     }
                 })
-               .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int which) {
-                       // do nothing
-                   }
-               }).show();
+               .setNegativeButton("No", null).show();
+    }
+
+    private JSONObject buildProcessedInfo(){
+        JSONObject loginInfo = new JSONObject();
+        try {
+            loginInfo.put("incident", new JSONObject().put("status", Incident.PROCESSED));
+        } catch (JSONException ignored) {}
+        return loginInfo;
     }
 
     private void setValueById(int id, String value){

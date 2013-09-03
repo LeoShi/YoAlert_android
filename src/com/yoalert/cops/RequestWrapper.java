@@ -3,22 +3,24 @@ package com.yoalert.cops;
 import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.util.List;
 
 public class RequestWrapper {
 
     public static Response post(String url, JSONObject data) {
-        HttpPost request = new HttpPost(url);
+        return getJsonResponse(data, new HttpPost(url));
+    }
+
+    public static Response put(String url, JSONObject data) {
+        return getJsonResponse(data, new HttpPut(url));
+    }
+
+    private static Response getJsonResponse(JSONObject data, HttpEntityEnclosingRequestBase request) {
         request.addHeader("content-type", "application/json");
         try {
             request.setEntity(new StringEntity(data.toString()));
